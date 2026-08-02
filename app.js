@@ -1,3 +1,5 @@
+// imports
+
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
@@ -18,6 +20,8 @@ app.use(cors());
 app.use(helmet());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+
+// Server running
 
 connectDB().then(() => {
   app.listen(
