@@ -7,6 +7,10 @@ import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import "dotenv/config.js";
 import connectDB from "./db/mongoose.connect.js";
+import userRoutes from "./routes/user.routes.js";
+import commentRoutes from "./routes/comment.route.js";
+import carRoutes from "./routes/car.routes.js";
+import productRoutes from "./routes/product.routes.js";
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -20,6 +24,13 @@ app.use(cors());
 app.use(helmet());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+
+// routes
+
+app.use("/user", userRoutes);
+app.use("/comment", commentRoutes);
+app.use("/cars", carRoutes);
+app.use("/products", productRoutes);
 
 // Server running
 
