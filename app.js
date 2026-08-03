@@ -11,6 +11,7 @@ import userRoutes from "./routes/user.routes.js";
 import commentRoutes from "./routes/comment.route.js";
 import carRoutes from "./routes/car.routes.js";
 import productRoutes from "./routes/product.routes.js";
+import cartRoutes from "./routes/cart.routes.js";
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -31,6 +32,7 @@ app.use("/user", userRoutes);
 app.use("/comment", commentRoutes);
 app.use("/cars", carRoutes);
 app.use("/products", productRoutes);
+app.use("/cart", cartRoutes);
 
 // Server running
 
