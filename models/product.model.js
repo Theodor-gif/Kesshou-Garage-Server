@@ -2,34 +2,17 @@ import { Schema, model } from "mongoose";
 
 const partSchema = new Schema(
   {
-    category: {
-      type: String,
-      required: true,
-      trim: true,
-      enum: [
-        "Coilovers",
-        "Braking",
-        "Wheels",
-        "Steering",
-        "Flywheel/Clutch",
-        "Lighting",
-      ],
-    },
-    name: { type: String, required: true, trim: true },
-    brand: { type: String, required: true, trim: true },
-    price: { type: Number, required: true, min: 0 },
+    name: { type: String, required: true },
+    brand: { type: String, required: true },
+    image: { type: String, required: true },
+    price: { type: Number, required: true },
     description: { type: String, required: true },
-    specs: {
-      type: Map,
-      of: String,
-      default: {},
-    },
-    compatibleWith: { type: [String], default: [] },
-
-    whatsInTheBox: { type: [String], default: [] },
-    kitFeatures: { type: [String], default: [] },
-
-    brandImage: { type: String, default: "" },
+    compatibleWith: [String],
+    specs: { type: Schema.Types.Mixed },
+    whatsInTheBox: [String],
+    kitFeatures: [String],
+    brandImage: { type: String },
+    categoryName: { type: String, required: true },
   },
   { timestamps: true },
 );
