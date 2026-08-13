@@ -39,6 +39,11 @@ app.use("/cars", carRoutes);
 app.use("/products", productRoutes);
 app.use("/cart", cartRoutes);
 
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(401).json({ message: "Invalid or expired token" });
+});
+
 // Server running
 
 connectDB().then(() => {
