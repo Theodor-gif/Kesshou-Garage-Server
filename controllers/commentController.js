@@ -11,7 +11,9 @@ export const getAllComments = async (req, res, next) => {
 
 export const getCommentsForPart = async (req, res, next) => {
   try {
-    const comments = await commentModel.find({ part: req.params.partid });
+    const comments = await commentModel
+      .find({ part: req.params.partId })
+      .populate({ path: "author" });
     res.status(200).json(comments);
   } catch (error) {
     res.status(500).json({ message: "Comments not found", error });

@@ -100,6 +100,8 @@ export const removeItemFromCart = async (req, res, next) => {
 
     await cart.save();
 
+    await cart.populate("items.part");
+
     res.status(200).json({ message: "Cart updated successfully", cart });
   } catch (error) {
     next(error);
