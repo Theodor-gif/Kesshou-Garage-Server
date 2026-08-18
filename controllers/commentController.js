@@ -13,8 +13,12 @@ export const getCommentsForPart = async (req, res, next) => {
   try {
     const comments = await commentModel
       .find({ part: req.params.partId })
-      .populate({ path: "author" });
-    res.status(200).json(comments);
+      .populate({ path: "author", select: "firstname surname" }); // Explicitly select fields
+
+    // 🛠️ THE FIX: Filter out any corrupted comments where the author database record no longer exists
+    const validComments = comments.filter((comment) => comment.author !== null);
+
+    res.status(200).json(validComments);
   } catch (error) {
     res.status(500).json({ message: "Comments not found", error });
   }
@@ -26,11 +30,14 @@ export const createComment = async (req, res, next) => {
     const { partid } = req.params;
     const author = req.user.id;
 
-    const comment = await commentModel.create({
+    let comment = await commentModel.create({
       text,
       author,
       part: partid,
     });
+
+    // 🛠️ FIX: Populate the author details right here before returning it to the frontend!
+    comment = await comment.populate("author", "firstname surname");
 
     res.status(201).json(comment);
   } catch (error) {
