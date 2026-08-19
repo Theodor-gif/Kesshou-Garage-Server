@@ -23,14 +23,15 @@ app.use(express.static("public"));
 app.use(morgan("dev"));
 // Clean up the URL string to strip away any accidental trailing slashes
 const cleanClientUrl = (
-  process.env.CLIENT_URL || "http://localhost:5173"
+  process.env.CLIENT_URL || "https://kesshou-garage-client-five.vercel.app"
 ).replace(/\/$/, "");
 
 app.use(
   cors({
     origin: [
       cleanClientUrl,
-      "https://kesshou-garage-client-five.vercel.app", // Explicitly backup the exact string without slash
+      "http://localhost:5173", // 💻 Explicitly allow your local dev environment port
+      "https://kesshou-garage-client-five.vercel.app", // 🚀 Explicitly backup the production domain
     ],
     credentials: true,
   }),
