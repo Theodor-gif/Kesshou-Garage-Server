@@ -23,7 +23,7 @@ app.use(express.static("public"));
 app.use(morgan("dev"));
 app.use(
   cors({
-    origin: process.env.CLIENT_UR || "http://localhost:5173", // Fallback to local Vite port if env is missing
+    origin: process.env.CLIENT_URL || "http://localhost:5173", // Fallback to local Vite port if env is missing
     credentials: true,
   }),
 );
