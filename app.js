@@ -21,12 +21,21 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 app.use(express.static("public"));
 app.use(morgan("dev"));
+// Clean up the URL string to strip away any accidental trailing slashes
+const cleanClientUrl = (
+  process.env.CLIENT_URL || "http://localhost:5173"
+).replace(/\/$/, "");
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173", // Fallback to local Vite port if env is missing
+    origin: [
+      cleanClientUrl,
+      "https://kesshou-garage-client-five.vercel.app", // Explicitly backup the exact string without slash
+    ],
     credentials: true,
   }),
 );
+
 app.use(helmet());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
